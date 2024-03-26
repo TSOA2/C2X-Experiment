@@ -56,7 +56,7 @@ List *_list_append(List *l, uintmax_t data)
 
 void _list_print(List *l)
 {
-	while (l->prev != NULL) {
+	while (l != NULL && l->prev != NULL) {
 		l = l->prev;
 	}
 
@@ -73,6 +73,10 @@ void _list_print(List *l)
 
 _Bool _list_contains(List *l, uintmax_t data)
 {
+	if (l == NULL) {
+		return 0;
+	}
+
 	List *c_l = l->next;
 	while (l) {
 		if (l->data == data) {
@@ -94,6 +98,10 @@ _Bool _list_contains(List *l, uintmax_t data)
 
 void _list_free(List *l)
 {
+	if (l == NULL) {
+		return ;
+	}
+
 	while (l->prev != NULL) {
 		l = l->prev;
 	}
@@ -135,6 +143,10 @@ _Bool _hashtable_contains(HashTable *ht, uintmax_t data)
 
 void _hashtable_free(HashTable *ht)
 {
+	if (ht == NULL) {
+		return ;
+	}
+
 	for (size_t i = 0; i < NUM_HASHTABLE_CHAINS; i++) {
 		if (ht->chains[i] != NULL) {
 			crt_free(ht->chains[i]);
